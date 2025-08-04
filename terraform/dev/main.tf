@@ -21,7 +21,6 @@ provider "helm" {
   }
 }
 
-# Create namespace
 module "namespace" {
   source = "../modules/namespace"
   
@@ -32,7 +31,7 @@ module "namespace" {
   }
 }
 
-# Deploy Helm chart
+#
 module "helm_release" {
   source = "../modules/helm-release"
   
@@ -40,7 +39,6 @@ module "helm_release" {
   namespace    = module.namespace.name
   chart_path   = var.chart_path
   
-  # Application configuration
   replica_count    = var.replica_count
   enable_ingress   = var.enable_ingress
   ingress_hostname = var.ingress_hostname

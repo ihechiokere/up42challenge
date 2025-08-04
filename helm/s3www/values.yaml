@@ -1,0 +1,46 @@
+# s3www
+s3www:
+  image:
+    repository: y4m4/s3www
+    tag: latest
+    pullPolicy: IfNotPresent
+  replicas: 1
+  
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+# MinIO
+minio:
+  image:
+    repository: quay.io/minio/minio
+    tag: latest
+  
+  storage: 10Gi
+  accessKey: minioadmin
+  secretKey: minioadmin
+  
+  resources:
+    requests:
+      cpu: 250m
+      memory: 256Mi
+    limits:
+      cpu: 1000m
+      memory: 1Gi
+
+# Service configuration
+service:
+  type: LoadBalancer
+  port: 80
+
+# Ingress
+ingress:
+  enabled: true
+  hostname: s3www.local
+  className: ""
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /

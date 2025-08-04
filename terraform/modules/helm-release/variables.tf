@@ -34,9 +34,9 @@ variable "ingress_hostname" {
 }
 
 variable "enable_monitoring" {
-  description = "Enable ServiceMonitor"
+  description = "Enable ServiceMonitor (requires Prometheus Operator)"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "minio_storage" {

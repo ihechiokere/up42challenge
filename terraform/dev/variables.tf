@@ -19,7 +19,7 @@ variable "environment" {
 variable "chart_path" {
   description = "Path to Helm chart"
   type        = string
-  default     = "../helm/s3www"
+  default     = "../../helm/s3www/"
 }
 
 variable "replica_count" {

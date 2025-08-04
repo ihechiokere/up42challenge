@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: s3www
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: s3www
+spec:
+  replicas: {{ .Values.s3www.replicas }}
+  selector:
+    matchLabels:
+      app: s3www
+  template:
+    metadata:
+      labels:
+        app: s3www
+    spec:
+      containers:
+      - name: s3www
+        image: {{ .Values.s3www.image.repository }}:{{ .Values.s3www.image.tag }}
+        imagePullPolicy: {{ .Values.s3www.image.pullPolicy }}
+        ports:
+        - containerPort: 8080
+        env:
+        - name: S3_ENDPOINT
+          value: "http://minio-service:9000"
+        - name: S3_BUCKET
+          value: "content"
+        - name: S3_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: minio-credentials
+              key: access-key
+        - name: S3_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: minio-credentials
+              key: secret-key
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        resources:
+          {{- toYaml .Values.s3www.resources | nindent 10 }}
