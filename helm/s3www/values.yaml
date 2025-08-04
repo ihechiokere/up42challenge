@@ -1,9 +1,12 @@
-# s3www
+# helm/s3www/values.yaml
+
+# s3www configuration
 s3www:
   image:
     repository: y4m4/s3www
     tag: latest
     pullPolicy: IfNotPresent
+  
   replicas: 1
   
   resources:
@@ -14,7 +17,7 @@ s3www:
       cpu: 500m
       memory: 512Mi
 
-# MinIO
+# MinIO configuration  
 minio:
   image:
     repository: quay.io/minio/minio
@@ -37,7 +40,7 @@ service:
   type: LoadBalancer
   port: 80
 
-# Ingress
+# Ingress configuration
 ingress:
   enabled: true
   hostname: s3www.local
