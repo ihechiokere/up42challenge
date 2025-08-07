@@ -8,8 +8,13 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-  - port: {{ .Values.service.port }}
-    targetPort: 80
+  - port: 80
+    targetPort: 8080
+    {{- if eq .Values.service.type "NodePort" }}
+    {{- if .Values.service.nodePort }}
+    nodePort: {{ .Values.service.nodePort }}
+    {{- end }}
+    {{- end }}
     protocol: TCP
     name: http
   selector:

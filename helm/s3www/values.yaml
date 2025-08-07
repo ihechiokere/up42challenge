@@ -36,7 +36,7 @@ minio:
 # Service configuration
 service:
   type: NodePort
-  port: 30000
+  nodePort:
 
 # Ingress configuration
 ingress:
