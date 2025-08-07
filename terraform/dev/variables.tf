@@ -1,13 +1,7 @@
-variable "namespace" {
-  description = "Kubernetes namespace"
-  type        = string
-  default     = "s3www"
-}
-
 variable "application" {
   description = "Application name"
-  type = string
-  default = "s3www"
+  type        = string
+  default     = "s3www"
 }
 
 variable "environment" {
@@ -19,29 +13,29 @@ variable "environment" {
 variable "chart_path" {
   description = "Path to Helm chart"
   type        = string
-  default     = "../../helm/s3www/"
+  default     = "../../helm/s3www"
 }
 
 variable "replica_count" {
   description = "Number of s3www replicas"
   type        = number
-  default     = 2
+  default     = 1
 }
 
 variable "enable_ingress" {
   description = "Enable Ingress"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "ingress_hostname" {
   description = "Ingress hostname"
   type        = string
-  default     = "s3www.local"
+  default     = "s3www-dev.local"
 }
 
 variable "enable_monitoring" {
-  description = "Enable ServiceMonitor"
+  description = "Enable ServiceMonitor (requires metrics-server)"
   type        = bool
   default     = true
 }
@@ -49,5 +43,5 @@ variable "enable_monitoring" {
 variable "minio_storage" {
   description = "MinIO storage size"
   type        = string
-  default     = "10Gi"
+  default     = "5Gi"
 }

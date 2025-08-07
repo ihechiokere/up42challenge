@@ -27,9 +27,15 @@ spec:
         - name: S3WWW_BUCKET
           value: "content"
         - name: S3WWW_ACCESS_KEY
-          value: "minioadmin" 
+          valueFrom:
+            secretKeyRef:
+              name: minio-credentials
+              key: access-key
         - name: S3WWW_SECRET_KEY
-          value: "minioadmin"  
+          valueFrom:
+            secretKeyRef:
+              name: minio-credentials
+              key: secret-key
         - name: S3WWW_LISTEN
           value: "0.0.0.0:8080" 
         resources:
